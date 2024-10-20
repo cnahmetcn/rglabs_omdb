@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { searchMovies, getMovieDetails } from './api/omdb'; // Film verilerini almak için bir fonksiyon
-import MovieCard from '../components/MovieCard'; // Film kartlarını göstermek için bileşen
+import { searchMovies, getMovieDetails } from './api/omdb';
+import MovieCard from '../components/MovieCard'; 
 import Link from 'next/link';
 import Head from 'next/head';
 
@@ -41,11 +41,11 @@ export default function Results() {
 
   const fetchMovies = async (query, pageNum, reset = false) => {
     setLoading(true);
-    const result = await searchMovies(query, pageNum); // API'den film verilerini al
+    const result = await searchMovies(query, pageNum);
 
     const detailedMovies = await Promise.all(
       result.movies.map(async (movie) => {
-        const movieDetails = await getMovieDetails(movie.imdbID); // Detaylı film bilgilerini al
+        const movieDetails = await getMovieDetails(movie.imdbID);
         return movieDetails;
       })
     );
