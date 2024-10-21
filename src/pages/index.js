@@ -13,22 +13,28 @@ export default function Home() {
 
   const handleSearch = async (e) => {
     setSearchTerm(e.target.value);
-
+  
     if (e.target.value.length > 2) {
       setLoading(true);
-
+  
       const result = await searchMovies(e.target.value, 1, true);
-      const detailedMovies = await Promise.all(
-        result.movies.map(async (movie) => {
-          const movieDetails = await getMovieDetails(movie.imdbID);
-          return movieDetails;
-        })
-      );
-
-      setMovies(detailedMovies);
+  
+      if (result && result.movies) {
+        const detailedMovies = await Promise.all(
+          result.movies.map(async (movie) => {
+            const movieDetails = await getMovieDetails(movie.imdbID);
+            return movieDetails;
+          })
+        );
+  
+        setMovies(detailedMovies);
+      } else {
+        setMovies([]);
+      }
+  
       setLoading(false);
     } else {
-      setMovies([]); // Arama terimi yoksa film listesini temizle
+      setMovies([]);
     }
   };
 
@@ -59,13 +65,18 @@ export default function Home() {
 
       {searchTerm.length > 2 && (
         <div className={`bg-white p-6 mt-6 w-full max-w-2xl rounded-lg shadow-md`}>
+          {movies.length === 0 && !loading ? (
+            <p className="mt-4 text-center">Sonuç bulunamadı</p>
+          ):
+          (
           <div className={`flex flex-col space-y-6 divide-y`}>
             {movies.map((movie, index) => (
               <div key={index}>
                 <MovieCard movie={movie} />
               </div>
             ))}
-          </div>
+          </div> 
+          )}
 
           {movies.length > 0 && (
             <div className="divide-y border-t border-gray-300 mt-6 pt-4 text-center">
@@ -73,10 +84,6 @@ export default function Home() {
                 DAHA FAZLA SONUÇ »
               </Link>
             </div>
-          )}
-
-          {movies.length === 0 && !loading && (
-            <p className="mt-4 text-center">Sonuç bulunamadı</p>
           )}
         </div>
       )}
