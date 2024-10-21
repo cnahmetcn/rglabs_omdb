@@ -22,7 +22,7 @@ mv .env.example .env.local
 npm run dev
 ```
 
-5. testleri başlatmak için
+5. testleri başlatmak için (test için jest kullanıldı)
 ```sh
 npm run test
 ```
