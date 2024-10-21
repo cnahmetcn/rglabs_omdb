@@ -16,3 +16,23 @@ npm install
 ```sh
 mv .env.example .env.local
 ```
+
+4. Projeyi başlatmak için
+```sh
+npm run dev
+```
+
+5. testleri başlatmak için
+```sh
+npm run test
+```
+
+## Uygulamaya Ait Ekran Resimleri
+
+![Uygulama Anasayfa Arama Kutusu](./screenshots/anasayfa.png)
+
+![Uygulama Anasayfa Film Sonuçları](./screenshots/anasayfa_film_arama.png)
+
+![Uygulama film Sonuçları Listeleme](./screenshots/listeleme.png)
+
+![Uygulama Index Sayfası Test](./screenshots/home_test.png)
